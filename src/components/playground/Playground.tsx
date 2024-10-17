@@ -49,7 +49,7 @@ export default function Playground() {
     formData.append('file', file)
 
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_SQLITE_URL + '/upload-file', {
+      const response = await fetch(process.env.POSTGRES_URL + '/upload-file', {
         method: 'POST',
         body: formData,
       })

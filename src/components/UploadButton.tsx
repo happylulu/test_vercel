@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useCallback } from 'react'
 
 interface UploadButtonProps {
   onFileUpload: (file: File) => void
@@ -32,6 +32,28 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileUpload, disabled }) =
   const handleClick = () => {
     triggerFileInput()
   }
+
+  const uploadDatabase = useCallback(async (file: File): Promise<string> => {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    try {
+      const response = await fetch(process.env.POSTGRES_URL + '/upload-file', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (!response.ok) {
+        throw new Error('Upload failed')
+      }
+
+      const data = await response.json()
+      return data.uuid
+    } catch (error) {
+      console.error('Error uploading file:', error)
+      throw error
+    }
+  }, [])
 
   return (
     <div className='fixed top-4 right-4 z-50'>
