@@ -28,8 +28,9 @@ export default async function handler(req: any, res: any) {
     }
 
     res.status(200).json(data);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in run:', error);
-    res.status(500).json({ message: `Error in run: ${error.message}` });
+    const errorMessage = (error as Error).message; // Type assertion
+    res.status(500).json({ message: `Error in run: ${errorMessage}` });
   }
 }
