@@ -24,6 +24,7 @@
     "@langchain/langgraph-sdk": "0.0.7",
     "@mui/material": "^5.16.7",
     "@mui/x-charts": "^7.14.0",
+    "@supabase/supabase-js": "^2.45.4",
     "@xyflow/react": "^12.1.1",
     "clsx": "^2.0.0",
     "is-ci": "^3.0.1",
